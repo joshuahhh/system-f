@@ -1,27 +1,27 @@
 {
-	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-	"name": "System F",
-	"patterns": [
-		{
-			"include": "#keywords"
-		},
-		{
-			"include": "#comments"
-		}
-	],
-	"repository": {
-		"keywords": {
-			"patterns": [{
-				"name": "keyword.control.system_f",
-				"match": "\\b(forall|bool|if|then|else|test)\\b"
-			}]
-		},
-		"comments": {
-			"patterns": [{
-				"name": "comment.line.number-sign.system_f",
-				"match": "#.*$"
-			}]
-		}
-	},
-	"scopeName": "source.system_f"
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "System F",
+  "patterns": [
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#comments"
+    }
+  ],
+  "repository": {
+    "keywords": {
+      "patterns": [{
+        "name": "keyword.control.system_f",
+        "match": "\\b(forall|bool|if|then|else|test)\\b"
+      }]
+    },
+    "comments": {
+      "patterns": [{
+        "name": "comment.line.number-sign.system_f",
+        "match": "#.*$"
+      }]
+    }
+  },
+  "scopeName": "source.system_f"
 }

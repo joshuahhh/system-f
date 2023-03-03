@@ -4,43 +4,43 @@ import { SystemF } from './systemf.js';
 
 // This method is called when language system_f is entered
 export function activate(context: vscode.ExtensionContext) {
-	console.log('system-f activated');
+  console.log('system-f activated');
 
-	const diagnosticCollection = vscode.languages.createDiagnosticCollection("system-f");
-	context.subscriptions.push(diagnosticCollection);
+  const diagnosticCollection = vscode.languages.createDiagnosticCollection("system-f");
+  context.subscriptions.push(diagnosticCollection);
 
-	subscribeToDocumentChanges(context, diagnosticCollection);
+  subscribeToDocumentChanges(context, diagnosticCollection);
 }
 
 export function deactivate() {
-	console.log('system-f deactivated');
+  console.log('system-f deactivated');
 }
 
 export function subscribeToDocumentChanges(context: vscode.ExtensionContext, diagnosticCollection: vscode.DiagnosticCollection): void {
-	if (vscode.window.activeTextEditor) {
-		refreshDiagnostics(vscode.window.activeTextEditor.document, diagnosticCollection);
-	}
-	context.subscriptions.push(
-		vscode.window.onDidChangeActiveTextEditor(editor => {
-			if (editor) {
-				refreshDiagnostics(editor.document, diagnosticCollection);
-			}
-		})
-	);
+  if (vscode.window.activeTextEditor) {
+    refreshDiagnostics(vscode.window.activeTextEditor.document, diagnosticCollection);
+  }
+  context.subscriptions.push(
+    vscode.window.onDidChangeActiveTextEditor(editor => {
+      if (editor) {
+        refreshDiagnostics(editor.document, diagnosticCollection);
+      }
+    })
+  );
 
-	context.subscriptions.push(
-		vscode.workspace.onDidChangeTextDocument(e => refreshDiagnostics(e.document, diagnosticCollection))
-	);
+  context.subscriptions.push(
+    vscode.workspace.onDidChangeTextDocument(e => refreshDiagnostics(e.document, diagnosticCollection))
+  );
 
-	context.subscriptions.push(
-		vscode.workspace.onDidCloseTextDocument(doc => diagnosticCollection.delete(doc.uri))
-	);
+  context.subscriptions.push(
+    vscode.workspace.onDidCloseTextDocument(doc => diagnosticCollection.delete(doc.uri))
+  );
 }
 
 export function refreshDiagnostics(doc: vscode.TextDocument, diagnosticCollection: vscode.DiagnosticCollection): void {
-	if (doc.languageId !== "system_f") { return; }
+  if (doc.languageId !== "system_f") { return; }
 
-	const msgs = SystemF.top(doc.getText());
+  const msgs = SystemF.top(doc.getText());
 
   const diagnostics = msgs.flatMap(msg => {
     if (msg.loc.length === 0) {
@@ -59,5 +59,5 @@ export function refreshDiagnostics(doc: vscode.TextDocument, diagnosticCollectio
     return diagnostic;
   });
 
-	diagnosticCollection.set(doc.uri, diagnostics);
+  diagnosticCollection.set(doc.uri, diagnostics);
 }
